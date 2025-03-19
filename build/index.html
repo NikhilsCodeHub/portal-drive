@@ -87,7 +87,7 @@
 
   <body class="navbar-fixed sidebar-fixed sidebar-light" id="body">
     <script>
-      NProgress.configure({ showSpinner: true });
+      NProgress.configure({ showSpinner: false });
       NProgress.start();
     </script>
 
@@ -441,19 +441,19 @@
               </div>
 
               <!-- Plan Cost By Channel Doughnut Chart -->
-              <div class="col-lg-4">
+              <div class="col-md-4">
                 <div class="card card-default compact-card rounded">
-                  <div class="card-header card-header-border-bottom">
+                  <div class="card-header border-bottom pb-1">
                     <h2>Plan Cost By Channel</h2>
                   </div>
                   <div class="card-body chart-card doughnut-chart">
-                    <canvas id="planCostChart"></canvas>
+                    <div id="planCostChart1"></div>
                   </div>
                 </div>
               </div>
 
               <!-- Top Categories Chart -->
-              <div class="col-lg-4">
+              <div class="col-md-4">
                 <div class="card card-default rounded">
                   <div class="card-header card-header-border-bottom">
                     <h2>Top Categories</h2>
@@ -560,6 +560,7 @@
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="plugins/simplebar/simplebar.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="plugins/jvectormap/jquery-jvectormap-2.0.3.min.js"></script>
     <script src="plugins/jvectormap/jquery-jvectormap-world-mill.js"></script>
     <script src="plugins/daterangepicker/moment.min.js"></script>
@@ -573,36 +574,35 @@
     <!-- Chart Initialization -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // Plan Cost By Channel Doughnut Chart
-        var planCostCtx = document.getElementById('planCostChart').getContext('2d');
-        var planCostChart = new Chart(planCostCtx, {
-          type: 'doughnut',
-          data: {
-            labels: ['Retail', 'Mail Order', 'Specialty'],
-            datasets: [{
-              data: [41.6, 38.4, 20.0],
-              backgroundColor: ['#3F51B5', '#2196F3', '#00BCD4']
-            }]
+        // Plan Cost By Channel Doughnut Chart using ApexCharts
+        var options = {
+          chart: {
+            type: 'donut',
+            height: 350
           },
-          options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            radius: '50%',
-            cutout: '60%',
-            plugins: {
-              legend: {
-                position: 'bottom'
-              },
-              tooltip: {
-                callbacks: {
-                  label: function(context) {
-                    return context.label + ': ' + context.parsed + '%';
-                  }
-                }
+          series: [41.6, 38.4, 20.0],
+          labels: ['Retail', 'Mail Order', 'Specialty'],
+          colors: ['#3F51B5', '#2196F3', '#00BCD4'],
+          legend: {
+            position: 'bottom'
+          },
+          dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+              return val.toFixed(1) + "%";
+            }
+          },
+          plotOptions: {
+            pie: {
+              donut: {
+                size: '60%'
               }
             }
           }
-        });
+        };
+
+        var chart = new ApexCharts(document.querySelector("#planCostChart1"), options);
+        chart.render();
 
         // Top Categories Stacked Bar Chart
         var topCategoriesCtx = document.getElementById('topCategoriesChart').getContext('2d');
