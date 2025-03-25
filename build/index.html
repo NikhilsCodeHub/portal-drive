@@ -87,8 +87,8 @@
 
   <body class="navbar-fixed sidebar-fixed sidebar-light" id="body">
     <script>
-      NProgress.configure({ showSpinner: false });
-      NProgress.start();
+      //NProgress.configure({ showSpinner: false });
+      //NProgress.start();
     </script>
 
     <div id="toaster"></div>
@@ -117,45 +117,14 @@
             <button id="sidebar-toggler" class="sidebar-toggle">
               <span class="sr-only">Toggle navigation</span>
             </button>
-
+      
             <span class="page-title">Healthcare Analytics Dashboard</span>
-
-            <div class="navbar-right ">
-              <!-- search form -->
-              <div class="search-form">
-                <form action="index.html" method="get">
-                  <div class="input-group input-group-sm" id="input-group-search">
-                    <input type="text" autocomplete="off" name="query" id="search-input" class="form-control" placeholder="Search..." />
-                    <div class="input-group-append">
-                      <button class="btn" type="button">/</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-
-              <ul class="nav navbar-nav">
-                <!-- User Account -->
-                <li class="dropdown user-menu">
-                  <button class="dropdown-toggle nav-link" data-toggle="dropdown">
-                    <img src="images/user/u6.jpg" class="user-image rounded-circle" alt="User Image" />
-                    <span class="d-none d-lg-inline-block">John Doe</span>
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-right">
-                    <li>
-                      <a class="dropdown-link-item" href="user-profile.html">
-                        <i class="mdi mdi-account-outline"></i>
-                        <span class="nav-text">My Profile</span>
-                      </a>
-                    </li>
-                    <li class="dropdown-footer">
-                      <a class="dropdown-link-item" href="sign-in.html"> <i class="mdi mdi-logout"></i> Log Out </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
+      
+            <div id="sidebar-right-content"></div>
           </nav>
         </header>
+
+
 
         <!-- ====================================
         ——— CONTENT WRAPPER
@@ -172,7 +141,14 @@
                       <i class="mdi mdi-pill text-primary"></i>
                       <h4 class="ml-2">Total Prescriptions</h4>
                     </div>
-                    <h1>125,543</h1>
+                    <h1 id="total-prescriptions"></h1>
+                    <script>
+                      fetch('/api/prescriptions/total')
+                        .then(response => response.json())
+                        .then(data => {
+                          document.getElementById('total-prescriptions').innerHTML = data.totalPrescriptions.toLocaleString();
+                        });
+                    </script>
                     <p class="text-success mb-0">+6.5% <span class="text-muted">vs last month</span></p>
                   </div>
                 </div>
@@ -393,21 +369,7 @@
       </div>
     </div>
 
-    <!-- Javascript -->
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="plugins/simplebar/simplebar.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="plugins/jvectormap/jquery-jvectormap-2.0.3.min.js"></script>
-    <script src="plugins/jvectormap/jquery-jvectormap-world-mill.js"></script>
-    <script src="plugins/daterangepicker/moment.min.js"></script>
-    <script src="plugins/daterangepicker/daterangepicker.js"></script>
-    <script src="plugins/toaster/toastr.min.js"></script>
-    <script src="js/mono.js"></script>
-    <script src="js/chart.js"></script>
-    <script src="js/map.js"></script>
-    <script src="js/custom.js"></script>
+
 
 
     <!-- Load Components -->
@@ -425,6 +387,36 @@
         feather.replace();
       });
     </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Load Sidebar
+        fetch('components/header.html')
+          .then(response => response.text())
+          .then(html => {
+            document.getElementById('sidebar-right-content').outerHTML = html;
+          })
+          .catch(error => console.error('Error loading sidebar-right-content:', error));
+
+        // Initialize Feather Icons
+        feather.replace();
+      });
+    </script>
+
+    <!-- Javascript -->
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/simplebar/simplebar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="plugins/jvectormap/jquery-jvectormap-2.0.3.min.js"></script>
+    <script src="plugins/jvectormap/jquery-jvectormap-world-mill.js"></script>
+    <script src="plugins/daterangepicker/moment.min.js"></script>
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="plugins/toaster/toastr.min.js"></script>
+    <script src="js/mono.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/custom.js"></script>
 
     <!-- Chart Initialization -->
     <script>
@@ -554,4 +546,4 @@
       });
     </script>
   </body>
-</html> 
+</html>
