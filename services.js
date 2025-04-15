@@ -14,7 +14,7 @@ app.use(express.json());
 // Routes
 app.use('/api/prescriptions', prescriptionService);
 app.use('/api/members', memberService);
-app.use(express.static(path.join(__dirname, 'build'))); // Serve static files from the 'public' folder
+//app.use(express.static(path.join(__dirname, 'build'))); // Serve files from the 'build' folder
 
 // Health check endpoint
 app.get('/health', (req, res) => {

@@ -143,7 +143,7 @@
                     </div>
                     <h1 id="total-prescriptions"></h1>
                     <script>
-                      fetch('/api/prescriptions/total')
+                      fetch('http://localhost:4000/api/prescriptions/total')
                         .then(response => response.json())
                         .then(data => {
                           document.getElementById('total-prescriptions').innerHTML = data.totalPrescriptions.toLocaleString();
