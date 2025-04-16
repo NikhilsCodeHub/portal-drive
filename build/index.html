@@ -141,14 +141,7 @@
                       <i class="mdi mdi-pill text-primary"></i>
                       <h4 class="ml-2">Total Prescriptions</h4>
                     </div>
-                    <h1 id="total-prescriptions"></h1>
-                    <script>
-                      fetch('/api/prescriptions/total')
-                        .then(response => response.json())
-                        .then(data => {
-                          document.getElementById('total-prescriptions').innerHTML = data.totalPrescriptions.toLocaleString();
-                        });
-                    </script>
+                    <h1 id="total-prescriptions">########</h1>
                     <p class="text-success mb-0">+6.5% <span class="text-muted">vs last month</span></p>
                   </div>
                 </div>
@@ -176,7 +169,7 @@
                       <i class="mdi mdi-currency-usd text-success"></i>
                       <h4 class="ml-2">Total Cost</h4>
                     </div>
-                    <h1>$12.5M</h1>
+                    <h1 id="total-cost">$12.5M</h1>
                     <p class="text-success mb-0">+3.2% <span class="text-muted">vs last month</span></p>
                   </div>
                 </div>
@@ -190,7 +183,7 @@
                       <i class="mdi mdi-hospital-building text-info"></i>
                       <h4 class="ml-2">Pharmacies</h4>
                     </div>
-                    <h1>1,253</h1>
+                    <h1 id="total-pharmacies">1,253</h1>
                     <p class="text-success mb-0">+1.2% <span class="text-muted">vs last month</span></p>
                   </div>
                 </div>
@@ -204,7 +197,7 @@
                       <i class="mdi mdi-doctor text-danger"></i>
                       <h4 class="ml-2">Prescribers</h4>
                     </div>
-                    <h1>3,512</h1>
+                    <h1 id="total-prescribers">0,000</h1>
                     <p class="text-success mb-0">+2.3% <span class="text-muted">vs last month</span></p>
                   </div>
                 </div>
@@ -214,141 +207,25 @@
             <!-- Charts & Tables Row -->
             <div class="row">
               <!-- Channel Data Table -->
-              <div class="col-md-4">
-                <div class="card card-default rounded">
-                  <div class="card-header card-header-border-bottom">
-                    <h2>Channel Analysis</h2>
-                  </div>
-                  <div class="card-body">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>Channel</th>
-                          <th>Utilizers</th>
-                          <th>Plan Cost</th>
-                          <th>% of Plan Cost</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Retail</td>
-                          <td>32,450</td>
-                          <td>$5.2M</td>
-                          <td>41.6%</td>
-                        </tr>
-                        <tr>
-                          <td>Mail Order</td>
-                          <td>12,325</td>
-                          <td>$4.8M</td>
-                          <td>38.4%</td>
-                        </tr>
-                        <tr>
-                          <td>Specialty</td>
-                          <td>2,450</td>
-                          <td>$2.5M</td>
-                          <td>20.0%</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+              <div class="col-md-4" id="channel-analysis-container"></div>
 
               <!-- Plan Cost By Channel Doughnut Chart -->
-              <div class="col-md-4">
-                <div class="card card-default compact-card rounded">
-                  <div class="card-header border-bottom pb-1">
-                    <h2>Plan Cost By Channel</h2>
-                  </div>
-                  <div class="card-body chart-card doughnut-chart">
-                    <div id="planCostChart1"></div>
-                  </div>
-                </div>
-              </div>
+              <div class="col-md-4" id="plan-cost-container"></div>
 
               <!-- Top Categories Chart -->
-              <div class="col-md-4">
-                <div class="card card-default rounded">
-                  <div class="card-header card-header-border-bottom">
-                    <h2>Top Categories</h2>
-                  </div>
-                  <div class="card-body chart-card">
-                    <canvas id="topCategoriesChart"></canvas>
-                  </div>
-                </div>
-              </div>
+              <div class="col-md-4" id="top-categories-container"></div>
             </div>
 
             <!-- Bottom Row -->
             <div class="row">
               <!-- Top Drugs Chart -->
-              <div class="col-lg-4">
-                <div class="card card-default rounded">
-                  <div class="card-header card-header-border-bottom">
-                    <h2>Top Drugs</h2>
-                  </div>
-                  <div class="card-body chart-card">
-                    <canvas id="topDrugsChart"></canvas>
-                  </div>
-                </div>
-              </div>
+              <div class="col-lg-4" id="top-drugs-container"></div>
 
               <!-- Drug Rankings Table -->
-              <div class="col-lg-4">
-                <div class="card card-default rounded">
-                  <div class="card-header card-header-border-bottom">
-                    <h2>Drug Rankings</h2>
-                  </div>
-                  <div class="card-body">
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th>Drug</th>
-                          <th>Category</th>
-                          <th>Curr Rank</th>
-                          <th>Prev Rank</th>
-                          <th>Plan Cost Increase</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Humira</td>
-                          <td>Specialty</td>
-                          <td>1</td>
-                          <td>1</td>
-                          <td>+12.5%</td>
-                        </tr>
-                        <tr>
-                          <td>Enbrel</td>
-                          <td>Specialty</td>
-                          <td>2</td>
-                          <td>3</td>
-                          <td>+8.2%</td>
-                        </tr>
-                        <tr>
-                          <td>Revlimid</td>
-                          <td>Oncology</td>
-                          <td>3</td>
-                          <td>2</td>
-                          <td>+5.1%</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+              <div class="col-lg-4" id="drug-rankings-container"></div>
 
               <!-- Medical % of ASP Chart -->
-              <div class="col-lg-4">
-                <div class="card card-default rounded">
-                  <div class="card-header card-header-border-bottom">
-                    <h2>Medical % of ASP by Channel</h2>
-                  </div>
-                  <div class="card-body chart-card">
-                    <canvas id="medicalAspChart"></canvas>
-                  </div>
-                </div>
-              </div>
+              <div class="col-lg-4" id="medical-asp-container"></div>
             </div>
           </div>
         </div>
@@ -370,9 +247,6 @@
     </div>
 
 
-
-
-    <!-- Load Components -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         // Load Sidebar
@@ -383,13 +257,7 @@
           })
           .catch(error => console.error('Error loading sidebar:', error));
 
-        // Initialize Feather Icons
-        feather.replace();
-      });
-    </script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Load Sidebar
+        // Load Header
         fetch('components/header.html')
           .then(response => response.text())
           .then(html => {
@@ -402,6 +270,96 @@
       });
     </script>
 
+    <!-- Load Components -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Load Channel Analysis
+        fetch('components/channelAnalysis.html')
+          .then(response => response.text())
+          .then(html => {
+            document.getElementById('channel-analysis-container').innerHTML = html;
+          })
+          .catch(error => console.error('Error loading channel analysis:', error));
+
+        // Load Plan Cost By Channel
+        fetch('components/planCostByChannel.html')
+          .then(response => response.text())
+          .then(html => {
+            document.getElementById('plan-cost-container').innerHTML = html;
+          })
+          .catch(error => console.error('Error loading plan cost by channel:', error));
+
+        // Load Top Categories
+        fetch('components/topCategories.html')
+          .then(response => response.text())
+          .then(html => {
+            document.getElementById('top-categories-container').innerHTML = html;
+          })
+          .catch(error => console.error('Error loading top categories:', error));
+
+        // Load Top Drugs
+        fetch('components/topDrugs.html')
+          .then(response => response.text())
+          .then(html => {
+            document.getElementById('top-drugs-container').innerHTML = html;
+          })
+          .catch(error => console.error('Error loading top drugs:', error));
+
+        // Load Drug Rankings
+        fetch('components/drugRankings.html')
+          .then(response => response.text())
+          .then(html => {
+            document.getElementById('drug-rankings-container').innerHTML = html;
+          })
+          .catch(error => console.error('Error loading drug rankings:', error));
+
+        // Load Medical ASP
+        fetch('components/medicalAsp.html')
+          .then(response => response.text())
+          .then(html => {
+            document.getElementById('medical-asp-container').innerHTML = html;
+          })
+          .catch(error => console.error('Error loading medical ASP:', error));
+
+        // Initialize Feather Icons
+        feather.replace();
+      });
+    </script>
+
+  <script>
+    // Microservice to fetch total prescriptions.
+    fetch('http://localhost:4000/api/prescriptions/total')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('total-prescriptions').innerHTML = data.totalPrescriptions.toLocaleString();
+      });
+      
+    // Microservice to fetch total cost.
+    fetch('http://localhost:4000/api/costs/total')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('total-cost').innerHTML = data.totalCost;
+      })
+      .catch(error => console.error('Error fetching total cost:', error));
+      
+    // Microservice to fetch total pharmacies.
+    fetch('http://localhost:4000/api/pharmacies/total')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('total-pharmacies').innerHTML = data.totalPharmacies;
+      })
+      .catch(error => console.error('Error fetching total pharmacies:', error));
+      
+    // Microservice to fetch total prescribers.
+    fetch('http://localhost:4000/api/prescribers/total')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('total-prescribers').innerHTML = data.totalPrescribers;
+      })
+      .catch(error => console.error('Error fetching total prescribers:', error));
+  </script>
+
+  
     <!-- Javascript -->
     <script src="plugins/jquery/jquery.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -418,132 +376,136 @@
     <script src="js/map.js"></script>
     <script src="js/custom.js"></script>
 
-    <!-- Chart Initialization -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Plan Cost By Channel Doughnut Chart using ApexCharts
-        var options = {
-          chart: {
-            type: 'donut',
-            height: 300
-          },
-          series: [41.6, 38.4, 20.0],
-          labels: ['Retail', 'Mail Order', 'Specialty'],
-          colors: ['#3F51B5', '#2196F3', '#00BCD4'],
-          legend: {
-            position: 'right'
-          },
-          dataLabels: {
-            enabled: true,
-            formatter: function (val) {
-              return val.toFixed(1) + "%";
-            }
-          },
-          plotOptions: {
-            pie: {
-              donut: {
-                size: '50%'
-              }
-            }
-          }
-        };
-
-        var chart = new ApexCharts(document.querySelector("#planCostChart1"), options);
-        chart.render();
-
-        // Top Categories Stacked Bar Chart
-        var topCategoriesCtx = document.getElementById('topCategoriesChart').getContext('2d');
-        var topCategoriesChart = new Chart(topCategoriesCtx, {
-          type: 'bar',
-          data: {
-            labels: ['Specialty', 'Diabetes', 'Cardiovascular', 'Respiratory', 'Pain'],
-            datasets: [{
-              label: 'Current Month',
-              data: [4.2, 3.1, 2.5, 2.1, 1.8],
-              backgroundColor: '#3F51B5'
-            }, {
-              label: 'Previous Month',
-              data: [3.8, 2.9, 2.3, 2.0, 1.7],
-              backgroundColor: '#90CAF9'
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              y: {
-                beginAtZero: true,
-                title: {
-                  display: true,
-                  text: 'Cost (Millions $)'
+        <!-- Chart Initialization -->
+        <script>
+         function initCharts() {
+            // Plan Cost By Channel Doughnut Chart using ApexCharts
+            var options = {
+              chart: {
+                type: 'donut',
+                height: 300
+              },
+              series: [41.6, 38.4, 20.0],
+              labels: ['Retail', 'Mail Order', 'Specialty'],
+              colors: ['#3F51B5', '#2196F3', '#00BCD4'],
+              legend: {
+                position: 'right'
+              },
+              dataLabels: {
+                enabled: true,
+                formatter: function (val) {
+                  return val.toFixed(1) + "%";
+                }
+              },
+              plotOptions: {
+                pie: {
+                  donut: {
+                    size: '50%'
+                  }
                 }
               }
-            }
-          }
-        });
-
-        // Top Drugs Stacked Bar Chart
-        var topDrugsCtx = document.getElementById('topDrugsChart').getContext('2d');
-        var topDrugsChart = new Chart(topDrugsCtx, {
-          type: 'bar',
-          data: {
-            labels: ['Humira', 'Enbrel', 'Revlimid', 'Lantus', 'Januvia'],
-            datasets: [{
-              label: 'Current Month',
-              data: [2.1, 1.8, 1.5, 1.2, 1.0],
-              backgroundColor: '#2196F3'
-            }, {
-              label: 'Previous Month',
-              data: [1.9, 1.6, 1.4, 1.1, 0.9],
-              backgroundColor: '#90CAF9'
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              y: {
-                beginAtZero: true,
-                title: {
-                  display: true,
-                  text: 'Cost (Millions $)'
+            };
+    
+            var chart = new ApexCharts(document.querySelector("#planCostChart1"), options);
+            chart.render();
+    
+            // Top Categories Stacked Bar Chart
+            var topCategoriesCtx = document.getElementById('topCategoriesChart').getContext('2d');
+            var topCategoriesChart = new Chart(topCategoriesCtx, {
+              type: 'bar',
+              data: {
+                labels: ['Specialty', 'Diabetes', 'Cardiovascular', 'Respiratory', 'Pain'],
+                datasets: [{
+                  label: 'Current Month',
+                  data: [4.2, 3.1, 2.5, 2.1, 1.8],
+                  backgroundColor: '#3F51B5'
+                }, {
+                  label: 'Previous Month',
+                  data: [3.8, 2.9, 2.3, 2.0, 1.7],
+                  backgroundColor: '#90CAF9'
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    title: {
+                      display: true,
+                      text: 'Cost (Millions $)'
+                    }
+                  }
                 }
               }
-            }
-          }
-        });
-
-        // Medical % of ASP by Channel Grouped Bar Chart
-        var medicalAspCtx = document.getElementById('medicalAspChart').getContext('2d');
-        var medicalAspChart = new Chart(medicalAspCtx, {
-          type: 'bar',
-          data: {
-            labels: ['Retail', 'Mail Order', 'Specialty'],
-            datasets: [{
-              label: 'Medical %',
-              data: [15, 12, 25],
-              backgroundColor: '#4CAF50'
-            }, {
-              label: 'ASP %',
-              data: [85, 88, 75],
-              backgroundColor: '#81C784'
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              y: {
-                beginAtZero: true,
-                title: {
-                  display: true,
-                  text: 'Percentage'
+            });
+    
+            // Top Drugs Stacked Bar Chart
+            var topDrugsCtx = document.getElementById('topDrugsChart').getContext('2d');
+            var topDrugsChart = new Chart(topDrugsCtx, {
+              type: 'bar',
+              data: {
+                labels: ['Humira', 'Enbrel', 'Revlimid', 'Lantus', 'Januvia'],
+                datasets: [{
+                  label: 'Current Month',
+                  data: [2.1, 1.8, 1.5, 1.2, 1.0],
+                  backgroundColor: '#2196F3'
+                }, {
+                  label: 'Previous Month',
+                  data: [1.9, 1.6, 1.4, 1.1, 0.9],
+                  backgroundColor: '#90CAF9'
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    title: {
+                      display: true,
+                      text: 'Cost (Millions $)'
+                    }
+                  }
                 }
               }
-            }
-          }
-        });
-      });
-    </script>
+            });
+    
+            // Medical % of ASP by Channel Grouped Bar Chart
+            var medicalAspCtx = document.getElementById('medicalAspChart').getContext('2d');
+            var medicalAspChart = new Chart(medicalAspCtx, {
+              type: 'bar',
+              data: {
+                labels: ['Retail', 'Mail Order', 'Specialty'],
+                datasets: [{
+                  label: 'Medical %',
+                  data: [15, 12, 25],
+                  backgroundColor: '#4CAF50'
+                }, {
+                  label: 'ASP %',
+                  data: [85, 88, 75],
+                  backgroundColor: '#81C784'
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    title: {
+                      display: true,
+                      text: 'Percentage'
+                    }
+                  }
+                }
+              }
+            });
+          };
+
+          setTimeout(initCharts, 2000);
+        </script>
+
+
   </body>
 </html>

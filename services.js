@@ -2,6 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const prescriptionService = require('./services/prescriptionService');
 const memberService = require('./services/memberService');
+const costService = require('./services/costService');
+const pharmacyService = require('./services/pharmacyService');
+const prescriberService = require('./services/prescriberService');
 const path = require('path');
 
 const app = express();
@@ -14,7 +17,9 @@ app.use(express.json());
 // Routes
 app.use('/api/prescriptions', prescriptionService);
 app.use('/api/members', memberService);
-app.use(express.static(path.join(__dirname, 'build'))); // Serve static files from the 'public' folder
+app.use('/api/costs', costService);
+app.use('/api/pharmacies', pharmacyService);
+app.use('/api/prescribers', prescriberService);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
