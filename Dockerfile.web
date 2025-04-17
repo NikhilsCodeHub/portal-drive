@@ -1,0 +1,22 @@
+# Dockerfile for Web Application
+
+# Use official Node.js LTS image
+FROM node:18
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Copy application files
+COPY app.js ./
+COPY build ./build
+
+# If you have a package.json in build, copy and install dependencies
+# (Uncomment the following lines if needed)
+# COPY build/package*.json ./build/
+# RUN cd build && npm install
+
+# Expose port (change if your app uses a different port)
+EXPOSE 3000
+
+# Start the application
+CMD ["node", "app.js"]
